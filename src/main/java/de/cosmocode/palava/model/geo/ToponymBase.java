@@ -19,29 +19,30 @@
 
 package de.cosmocode.palava.model.geo;
 
-import java.util.List;
-import java.util.Set;
 import java.util.TimeZone;
 
 import org.geonames.FeatureClass;
 
+import com.google.common.collect.ImmutableList;
+
 import de.cosmocode.palava.model.base.EntityBase;
-import de.cosmocode.palava.model.base.LocationBase;
+import de.cosmocode.palava.model.business.Geographical;
 
 /**
+ * Read only!
  * 
  * @see <a href="http://download.geonames.org/export/dump/">Geonames.org Download Server</a>
  * 
  * @author Willi Schoenborn
  */
-public interface ToponymBase extends EntityBase, LocationBase {
-
+public interface ToponymBase extends EntityBase, Geographical {
+    
     String getName();
     
     // TODO asciialize
     String getAsciiName();
     
-    List<String> getAlternateNames();
+    ImmutableList<String> getAlternateNames();
     
     FeatureClass getFeatureClass();
     
@@ -49,15 +50,15 @@ public interface ToponymBase extends EntityBase, LocationBase {
     
     String getCountryCode();
     
-    List<String> getAlternateCountryCodes();
+    ImmutableList<String> getAlternateCountryCodes();
     
-    String getFirstDevision();
+    String getFirstDivision();
 
-    String getSecondDevision();
+    String getSecondDivision();
 
-    String getThirdDevision();
+    String getThirdDivision();
 
-    String getFourthDevision();
+    String getFourthDivision();
     
     Long getPopulation();
     
@@ -66,7 +67,5 @@ public interface ToponymBase extends EntityBase, LocationBase {
     Integer getAverageElevation();
     
     TimeZone getTimeZone();
-    
-    Set<AirportBase> getAirports();
     
 }

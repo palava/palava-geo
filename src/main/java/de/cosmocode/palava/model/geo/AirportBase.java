@@ -20,7 +20,7 @@
 package de.cosmocode.palava.model.geo;
 
 import de.cosmocode.palava.model.base.EntityBase;
-import de.cosmocode.palava.model.base.LocationBase;
+import de.cosmocode.palava.model.business.Geographical;
 
 /**
  * 
@@ -28,8 +28,8 @@ import de.cosmocode.palava.model.base.LocationBase;
  *
  * @author Willi Schoenborn
  */
-public interface AirportBase extends EntityBase, LocationBase {
-
+public interface AirportBase extends EntityBase, Geographical {
+    
     String getAirportCode();
     
     String getName();
