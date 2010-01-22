@@ -1,72 +1,50 @@
+/**
+ * palava - a java-php-bridge
+ * Copyright (C) 2007  CosmoCode GmbH
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
 package de.cosmocode.palava.model.geo;
 
-import java.util.TimeZone;
-
 import javax.persistence.Column;
-import javax.persistence.Transient;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
-import org.apache.commons.lang.StringUtils;
-import org.geonames.FeatureClass;
+import de.cosmocode.json.JSONRenderer;
 
-import com.google.common.collect.ImmutableList;
-
-import de.cosmocode.palava.model.base.AbstractEntity;
-import de.cosmocode.palava.model.business.AbstractLocation;
-import de.cosmocode.palava.model.business.LocationBase;
-
-public abstract class AbstractToponym extends AbstractEntity implements ToponymBase {
+/**
+ * Abstract base implementation of the {@link ToponymBase} interface.
+ * 
+ * @author Willi Schoenborn
+ */
+@MappedSuperclass
+public abstract class AbstractToponym implements ToponymBase {
+    
+    @Id
+    private long id;
 
     private String name;
-    
-    @Column(name = "ascii_name")
-    private String asciiName;
-    
-    @Column(name = "alternate_names")
-    private String alternateNames;
-    
-    @Transient
-    private transient ImmutableList<String> alternateNamesList;
-    
-    @Column(name = "feature_class")
-    private FeatureClass featureClass;
-    
-    @Column(name = "feature_code")
-    private String featureCode;
-    
+
     @Column(name = "country_code")
     private String countryCode;
-    
-    @Column(name = "alternate_country_codes")
-    private String alternateCountryCodes;
-    
-    @Transient
-    private transient ImmutableList<String> alternateCountryCodesList;
-    
-    @Column(name = "first_division")
-    private String firstDivision;
-    
-    @Column(name = "second_division")
-    private String secondDivision;
-    
-    @Column(name = "third_division")
-    private String thirdDivision;
-    
-    @Column(name = "fourth_division")
-    private String fourthDivision;
-    
-    private Long population;
-    
-    private Integer elevation;
-    
-    @Column(name = "average_elevation")
-    private Integer averageElevation;
-    
-    @Column(name = "time_zone")
-    private String timeZone;
 
-    private Double latitude;
-    
-    private Double longitude;
+    @Override
+    public long getId() {
+        return id;
+    }
     
     @Override
     public String getName() {
@@ -74,121 +52,16 @@ public abstract class AbstractToponym extends AbstractEntity implements ToponymB
     }
 
     @Override
-    public String getAsciiName() {
-        return asciiName;
-    }
-    
-    @Override
-    public ImmutableList<String> getAlternateNames() {
-        if (alternateNamesList == null) {
-            if (StringUtils.isBlank(alternateNames)) {
-                alternateNamesList = ImmutableList.of();
-            } else {
-                alternateNamesList = ImmutableList.of(alternateNames.split(","));
-            }
-        }
-        return alternateNamesList;
-    }
-    
-    @Override
-    public FeatureClass getFeatureClass() {
-        return featureClass;
-    }
-    
-    @Override
-    public String getFeatureCode() {
-        return featureCode;
-    }
-    
-    @Override
     public String getCountryCode() {
         return countryCode;
     }
-    
-    @Override
-    public ImmutableList<String> getAlternateCountryCodes() {
-        if (alternateCountryCodesList == null) {
-            if (StringUtils.isBlank(alternateCountryCodes)) {
-                alternateCountryCodesList = ImmutableList.of();
-            } else {
-                alternateCountryCodesList = ImmutableList.of(alternateCountryCodes.split(","));
-            }
-        }
-        return alternateCountryCodesList;
-    }
-    
-    @Override
-    public String getFirstDivision() {
-        return firstDivision;
-    }
-    
-    @Override
-    public String getSecondDivision() {
-        return secondDivision;
-    }
-    
-    @Override
-    public String getThirdDivision() {
-        return thirdDivision;
-    }
-    
-    @Override
-    public String getFourthDivision() {
-        return fourthDivision;
-    }
-    
-    @Override
-    public Long getPopulation() {
-        return population;
-    }
-    
-    @Override
-    public Integer getElevation() {
-        return elevation;
-    }
-    
-    @Override
-    public Integer getAverageElevation() {
-        return averageElevation;
-    }
-    
-    @Override
-    public TimeZone getTimeZone() {
-        return StringUtils.isBlank(timeZone) ? null : TimeZone.getTimeZone(timeZone);
-    }
-    
-    @Override
-    public LocationBase getLocation() {
-        return new InternalLocation();
-    }
-    
-    /**
-     * 
-     *
-     * @author Willi Schoenborn
-     */
-    private final class InternalLocation extends AbstractLocation {
-        
-        @Override
-        public Double getLatitude() {
-            return latitude;
-        }
-        
-        @Override
-        public void setLatitude(Double latitude) {
-            AbstractToponym.this.latitude = latitude;
-        }
-        
-        @Override
-        public Double getLongitude() {
-            return longitude;
-        }
-        
-        @Override
-        public void setLongitude(Double longitude) {
-            AbstractToponym.this.longitude = longitude;
-        }
-        
-    }
 
+    @Override
+    public JSONRenderer renderAsMap(JSONRenderer renderer) {
+        return renderer.
+            key("id").value(getId()).
+            key("name").value(getName()).
+            key("countryCode").value(getCountryCode()).
+            key("aliases").array(getAliases());
+    }
 }

@@ -19,7 +19,7 @@
 
 package de.cosmocode.palava.model.geo;
 
-import de.cosmocode.palava.model.base.EntityBase;
+import de.cosmocode.json.JSONMapable;
 
 /**
  * 
@@ -27,16 +27,12 @@ import de.cosmocode.palava.model.base.EntityBase;
  * 
  * @author Willi Schoenborn
  */
-public interface AlternateNameBase extends EntityBase {
+public interface AliasBase extends JSONMapable {
 
-    ToponymBase getToponym();
+    String getName();
     
     String getLanguageCode();
     
-    String getName();
-    
-    boolean isPreferredName();
-    
-    boolean isShortName();
+    ToponymBase getToponym();
     
 }

@@ -19,14 +19,9 @@
 
 package de.cosmocode.palava.model.geo;
 
-import java.util.TimeZone;
+import java.util.Set;
 
-import org.geonames.FeatureClass;
-
-import com.google.common.collect.ImmutableList;
-
-import de.cosmocode.palava.model.base.EntityBase;
-import de.cosmocode.palava.model.business.Geographical;
+import de.cosmocode.json.JSONMapable;
 
 /**
  * Read only!
@@ -35,37 +30,14 @@ import de.cosmocode.palava.model.business.Geographical;
  * 
  * @author Willi Schoenborn
  */
-public interface ToponymBase extends EntityBase, Geographical {
+public interface ToponymBase extends JSONMapable {
+
+    long getId();
     
     String getName();
     
-    // TODO asciialize
-    String getAsciiName();
-    
-    ImmutableList<String> getAlternateNames();
-    
-    FeatureClass getFeatureClass();
-    
-    String getFeatureCode();
-    
     String getCountryCode();
-    
-    ImmutableList<String> getAlternateCountryCodes();
-    
-    String getFirstDivision();
 
-    String getSecondDivision();
-
-    String getThirdDivision();
-
-    String getFourthDivision();
-    
-    Long getPopulation();
-    
-    Integer getElevation();
-    
-    Integer getAverageElevation();
-    
-    TimeZone getTimeZone();
+    Set<? extends AliasBase> getAliases();
     
 }
