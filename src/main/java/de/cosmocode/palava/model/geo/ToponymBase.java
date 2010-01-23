@@ -24,7 +24,6 @@ import java.util.Set;
 import de.cosmocode.json.JSONMapable;
 
 /**
- * Read only!
  * 
  * @see <a href="http://download.geonames.org/export/dump/">Geonames.org Download Server</a>
  * 
