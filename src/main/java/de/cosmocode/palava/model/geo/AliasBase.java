@@ -19,17 +19,43 @@ package de.cosmocode.palava.model.geo;
 import de.cosmocode.json.JSONMapable;
 
 /**
+ * An alias specified a localized name of a {@link ToponymBase} and is therefore
+ * a tupel containing:
+ * <ol>
+ *   <li>a name</li>
+ *   <li>a language code</li>
+ *   <li>a reference to a {@link ToponymBase}</li>
+ * </ol>.
  * 
  * @see <a href="http://download.geonames.org/export/dump/">Geonames.org Download Server</a>
- * 
+ *
+ * @since 2.0
  * @author Willi Schoenborn
  */
 public interface AliasBase extends JSONMapable {
 
+    /**
+     * Provides the localized name of the associated toponym.
+     * 
+     * @since 2.0
+     * @return the localized name
+     */
     String getName();
     
+    /**
+     * Provides the ISO 639-2 language code.
+     * 
+     * @since 2.0
+     * @return the iso language code
+     */
     String getLanguageCode();
     
+    /**
+     * Provides the associated toponym.
+     * 
+     * @since 2.0
+     * @return the associated toponym
+     */
     ToponymBase getToponym();
     
 }

@@ -21,19 +21,50 @@ import java.util.Set;
 import de.cosmocode.json.JSONMapable;
 
 /**
+ * Refers to toponym which can be anything from an intersection, city, country or
+ * even a continent.
  * 
  * @see <a href="http://download.geonames.org/export/dump/">Geonames.org Download Server</a>
  * 
+ * @since 2.0
  * @author Willi Schoenborn
  */
 public interface ToponymBase extends JSONMapable {
 
+    /**
+     * Provides the the id of this toponym.
+     * 
+     * @since 2.0
+     * @return the id
+     */
     long getId();
     
+    /**
+     * Provides the name of this toponym, usually in the
+     * country's default language if something like that
+     * exists.
+     * 
+     * @since 2.0
+     * @return the default name
+     */
     String getName();
     
+    /**
+     * Provides the ISO 3166-1 alpha 2 country code of this
+     * toponym.
+     * 
+     * @since 2.0
+     * @return the iso country code
+     */
     String getCountryCode();
 
+    /**
+     * Provides the list of associated alternate names of this
+     * toponym.
+     * 
+     * @since 2.0
+     * @return set of aliases
+     */
     Set<? extends AliasBase> getAliases();
     
 }
