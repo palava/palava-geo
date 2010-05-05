@@ -20,7 +20,9 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import de.cosmocode.json.JSONRenderer;
+import de.cosmocode.rendering.Renderer;
+import de.cosmocode.rendering.RenderingException;
+import de.cosmocode.rendering.RenderingLevel;
 
 /**
  * Abstract base implementation of the {@link ToponymBase} interface.
@@ -54,11 +56,11 @@ public abstract class AbstractToponym implements ToponymBase {
     }
 
     @Override
-    public JSONRenderer renderAsMap(JSONRenderer renderer) {
-        return renderer.
+    public void render(Renderer renderer, RenderingLevel level) throws RenderingException {
+        renderer.
             key("id").value(getId()).
             key("name").value(getName()).
             key("countryCode").value(getCountryCode()).
-            key("aliases").array(getAliases());
+            key("aliases").value(getAliases(), level);
     }
 }

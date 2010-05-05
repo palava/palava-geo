@@ -16,7 +16,7 @@
 
 package de.cosmocode.palava.model.geo;
 
-import de.cosmocode.json.JSONMapable;
+import de.cosmocode.rendering.Renderable;
 
 /**
  * An alias specified a localized name of a {@link ToponymBase} and is therefore
@@ -32,7 +32,7 @@ import de.cosmocode.json.JSONMapable;
  * @since 2.0
  * @author Willi Schoenborn
  */
-public interface AliasBase extends JSONMapable {
+public interface AliasBase extends Renderable {
 
     /**
      * Provides the localized name of the associated toponym.

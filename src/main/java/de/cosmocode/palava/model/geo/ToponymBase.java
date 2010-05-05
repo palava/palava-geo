@@ -18,7 +18,7 @@ package de.cosmocode.palava.model.geo;
 
 import java.util.Set;
 
-import de.cosmocode.json.JSONMapable;
+import de.cosmocode.rendering.Renderable;
 
 /**
  * Refers to toponym which can be anything from an intersection, city, country or
@@ -29,7 +29,7 @@ import de.cosmocode.json.JSONMapable;
  * @since 2.0
  * @author Willi Schoenborn
  */
-public interface ToponymBase extends JSONMapable {
+public interface ToponymBase extends Renderable {
 
     /**
      * Provides the the id of this toponym.
